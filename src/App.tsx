@@ -2,13 +2,32 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import Header from './components/Header'
 import ToolCard from './components/ToolCard'
-
 import NotFound from './components/NotFound'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { tools } from './config/tools'
 
 function Home() {
   const navigate = useNavigate()
+  const [search, setSearch] = useState('')
+
+  const filteredTools = tools.filter((tool) => {
+    const query = search.trim().toLowerCase()
+
+    if (!query) {
+      return true
+    }
+
+    const searchableText = [
+      tool.title,
+      tool.description,
+      tool.category,
+      ...tool.keywords,
+    ]
+      .join(' ')
+      .toLowerCase()
+
+    return searchableText.includes(query)
+  })
 
   return (
     <>
@@ -115,20 +134,135 @@ function Home() {
             Fast, private tools that run directly in your browser.
             No accounts. No uploads. No nonsense.
           </p>
+<div className="relative mt-8 w-full max-w-xl">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="
+      pointer-events-none
+      absolute
+      left-4
+      top-1/2
+      h-4
+      w-4
+      -translate-y-1/2
+      text-white/30
+    "
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
 
-          <div className="mt-10 grid w-full max-w-3xl gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4">
-
-            {tools.map((tool) => (
-  <ToolCard
-    key={tool.id}
-    icon={tool.icon}
-    title={tool.title}
-    description={tool.description}
-    onClick={() => navigate(tool.path)}
+  <input
+    type="text"
+    value={search}
+    onChange={(event) =>
+      setSearch(event.target.value)
+    }
+    onKeyDown={(event) => {
+      if (event.key === 'Escape') {
+        setSearch('')
+        event.currentTarget.blur()
+      }
+    }}
+    placeholder="Search tools..."
+    aria-label="Search tools"
+    className="
+      w-full
+      rounded-2xl
+      border
+      border-white/10
+      bg-white/[0.035]
+      py-3.5
+      pl-11
+      pr-11
+      text-sm
+      text-white
+      outline-none
+      backdrop-blur-xl
+      transition
+      placeholder:text-white/25
+      hover:border-white/15
+      hover:bg-white/[0.05]
+      focus:border-violet-400/40
+      focus:bg-violet-400/[0.04]
+      focus:ring-4
+      focus:ring-violet-500/[0.06]
+    "
   />
-))}
 
-          </div>
+  {search && (
+    <button
+      type="button"
+      onClick={() => setSearch('')}
+      aria-label="Clear search"
+      className="
+        absolute
+        right-3
+        top-1/2
+        flex
+        h-7
+        w-7
+        -translate-y-1/2
+        items-center
+        justify-center
+        rounded-lg
+        text-white/30
+        transition
+        hover:bg-white/[0.06]
+        hover:text-white/70
+      "
+    >
+      ×
+    </button>
+  )}
+</div>
+<div className="mt-6 w-full max-w-3xl">
+  {filteredTools.length > 0 ? (
+    <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+      {filteredTools.map((tool) => (
+        <ToolCard
+          key={tool.id}
+          icon={tool.icon}
+          title={tool.title}
+          description={tool.description}
+          onClick={() =>
+            navigate(tool.path)
+          }
+        />
+      ))}
+    </div>
+  ) : (
+    <div
+      className="
+        rounded-2xl
+        border
+        border-white/[0.07]
+        bg-white/[0.02]
+        px-6
+        py-10
+        text-center
+      "
+    >
+      <div className="text-2xl">
+        ¯\_(ツ)_/¯
+      </div>
+
+      <p className="mt-3 text-sm font-medium text-white/60">
+        No tools found
+      </p>
+
+      <p className="mt-1 text-sm text-white/30">
+        Nothing matches “{search}”
+      </p>
+    </div>
+  )}
+</div>
         </section>
       </div>
     </main>
