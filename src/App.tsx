@@ -6,6 +6,7 @@ import JsonFormatter from './tools/json/JsonFormatter'
 import PasswordGenerator from './tools/password/PasswordGenerator'
 import QrGenerator from './tools/qr/QrGenerator'
 import NotFound from './components/NotFound'
+import XmlFormatter from './tools/xml/XmlFormatter'
 
 function Home() {
   const navigate = useNavigate()
@@ -116,7 +117,7 @@ function Home() {
             No accounts. No uploads. No nonsense.
           </p>
 
-          <div className="mt-10 grid w-full max-w-3xl gap-3 sm:mt-12 sm:gap-4 md:grid-cols-3">
+          <div className="mt-10 grid w-full max-w-3xl gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4">
 
             <ToolCard
               icon="{ }"
@@ -124,7 +125,14 @@ function Home() {
               description="Format & validate"
               onClick={() => navigate('/tools/json-formatter')}
             />
-
+<ToolCard
+  icon="</>"
+  title="XML"
+  description="Format & validate"
+  onClick={() =>
+    navigate('/tools/xml')
+  }
+/>
             <ToolCard
               icon="✦"
               title="Password"
@@ -183,6 +191,14 @@ function App() {
           />
         }
       />
+      <Route
+  path="/tools/xml"
+  element={
+    <XmlFormatter
+      onBack={() => navigate('/')}
+    />
+  }
+/>
        <Route
         path="*"
         element={<NotFound />}
