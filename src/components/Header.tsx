@@ -51,7 +51,7 @@ function Header() {
       >
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
 
-        Your information is safe with us. We do not collect any data.
+        Your information is safe with us. We do not collect any data :).
       </div>
 
     </header>
