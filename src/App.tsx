@@ -2,11 +2,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import Header from './components/Header'
 import ToolCard from './components/ToolCard'
-import JsonFormatter from './tools/json/JsonFormatter'
-import PasswordGenerator from './tools/password/PasswordGenerator'
-import QrGenerator from './tools/qr/QrGenerator'
+
 import NotFound from './components/NotFound'
-import XmlFormatter from './tools/xml/XmlFormatter'
+import { Suspense } from 'react'
+import { tools } from './config/tools'
 
 function Home() {
   const navigate = useNavigate()
@@ -119,33 +118,15 @@ function Home() {
 
           <div className="mt-10 grid w-full max-w-3xl gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4">
 
-            <ToolCard
-              icon="{ }"
-              title="JSON"
-              description="Format & validate"
-              onClick={() => navigate('/tools/json-formatter')}
-            />
-<ToolCard
-  icon="</>"
-  title="XML"
-  description="Format & validate"
-  onClick={() =>
-    navigate('/tools/xml')
-  }
-/>
-            <ToolCard
-              icon="✦"
-              title="Password"
-              description="Generate securely"
-              onClick={() => navigate('/tools/password-generator')}
-            />
-
-            <ToolCard
-              icon="▦"
-              title="QR Code"
-              description="Generate instantly"
-              onClick={() => navigate('/tools/qr-generator')}
-            />
+            {tools.map((tool) => (
+  <ToolCard
+    key={tool.id}
+    icon={tool.icon}
+    title={tool.title}
+    description={tool.description}
+    onClick={() => navigate(tool.path)}
+  />
+))}
 
           </div>
         </section>
@@ -155,55 +136,83 @@ function Home() {
   )
 }
 
+function ToolLoading() {
+  return (
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#09090b] text-white">
+
+      <div className="pointer-events-none absolute inset-0">
+        <div className="home-grid absolute inset-0" />
+
+        <div
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            h-[400px]
+            w-[500px]
+            -translate-x-1/2
+            -translate-y-1/2
+            rounded-full
+            bg-violet-500/[0.06]
+            blur-[120px]
+          "
+        />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center">
+        <img
+          src="/universal-icon.svg"
+          alt=""
+          className="h-12 w-12 animate-pulse"
+        />
+
+        <div className="mt-4 text-sm text-white/30">
+          Loading tool...
+        </div>
+      </div>
+
+    </main>
+  )
+}
+
 function App() {
   const navigate = useNavigate()
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={<Home />}
-      />
+    <Suspense fallback={<ToolLoading />}>
+      <Routes>
 
-      <Route
-        path="/tools/json-formatter"
-        element={
-          <JsonFormatter
-            onBack={() => navigate('/')}
-          />
-        }
-      />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-      <Route
-        path="/tools/password-generator"
-        element={
-          <PasswordGenerator
-            onBack={() => navigate('/')}
-          />
-        }
-      />
+        {tools.map((tool) => {
+          const ToolComponent =
+            tool.component
 
-      <Route
-        path="/tools/qr-generator"
-        element={
-          <QrGenerator
-            onBack={() => navigate('/')}
-          />
-        }
-      />
-      <Route
-  path="/tools/xml"
-  element={
-    <XmlFormatter
-      onBack={() => navigate('/')}
-    />
-  }
-/>
-       <Route
-        path="*"
-        element={<NotFound />}
-      />
-    </Routes>
+          return (
+            <Route
+              key={tool.id}
+              path={tool.path}
+              element={
+                <ToolComponent
+                  onBack={() =>
+                    navigate('/')
+                  }
+                />
+              }
+            />
+          )
+        })}
+
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+
+      </Routes>
+    </Suspense>
   )
 }
 
