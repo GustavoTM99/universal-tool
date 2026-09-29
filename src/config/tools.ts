@@ -176,5 +176,26 @@ description:'Add your options and randomly pick a winner.',
       () => import('../tools/random/RandomPicker')
     ),
   },
-
+{
+  id: 'ascii-banner',
+  icon: 'A',
+  title: 'ASCII Banner',
+  description:
+    'Turn text into glorious ASCII art banners.',
+  category: 'developer',
+  path: '/ascii-banner',
+  keywords: [
+    'ascii',
+    'ascii art',
+    'ascii banner',
+    'banner',
+    'figlet',
+    'text art',
+    'terminal',
+    'terminal banner',
+  ],
+    component: lazy(
+        () => import('../tools/ascii/AsciiBanner')
+    ),
+},
 ]
