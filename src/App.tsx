@@ -6,6 +6,7 @@ import NotFound from './components/NotFound'
 import { Suspense, useState } from 'react'
 import { tools } from './config/tools'
 
+
 function Home() {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
@@ -56,7 +57,7 @@ function Home() {
 
   <meta
     property="og:image"
-    content="https://TU-DOMINIO.com/og-image.png"
+    content="https://universal-tool.gustavotm99.workers.dev/og-image.png"
   />
 
   <meta
@@ -76,7 +77,7 @@ function Home() {
 
   <meta
     property="og:url"
-    content="https://TU-DOMINIO.com/"
+    content="https://universal-tool.gustavotm99.workers.dev/"
   />
 
   <meta
@@ -102,7 +103,7 @@ function Home() {
 
   <meta
     name="twitter:image"
-    content="https://TU-DOMINIO.com/og-image.png"
+    content="https://universal-tool.gustavotm99.workers.dev/og-image.png"
   />
 </Helmet>
     <main className="relative min-h-screen overflow-hidden bg-[#09090b] text-white">

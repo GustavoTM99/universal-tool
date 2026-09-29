@@ -4,6 +4,7 @@ export type ToolCategory =
   | 'developer'
   | 'security'
   | 'generator'
+  | 'everyday'
 
 export type ToolComponentProps = {
   onBack: () => void
@@ -127,4 +128,53 @@ export const tools: ToolDefinition[] = [
       () => import('../tools/qr/QrGenerator')
     ),
   },
+
+  {
+    id: 'base64',
+    title: 'Base 64 encoder/decoder',
+    description: 'Generate instantly',
+    icon: '64',
+    path: '/tools/base64',
+    category: 'developer',
+    keywords: [
+      'base64',
+      'encoder',
+      'decoder',
+      'generator',
+      'generate',
+      'url',
+      'link',
+      'website',
+      '64',
+      'text'
+    ],
+    component: lazy(
+      () => import('../tools/base64/Base64Tool')
+    ),
+  },
+  
+{
+    id: 'random',
+    title: 'Random Picker',
+description:'Add your options and randomly pick a winner.',
+    icon: '✦',
+    path: '/tools/random',
+    category: 'everyday',
+    keywords: [
+  'random',
+  'picker',
+  'random picker',
+  'random choice',
+  'random name',
+  'name picker',
+  'winner',
+  'raffle',
+  'decision',
+  'choose',
+],
+    component: lazy(
+      () => import('../tools/random/RandomPicker')
+    ),
+  },
+
 ]
