@@ -32,45 +32,79 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>
-          Universal Tool — Fast, Private Online Tools
-        </title>
+  <title>Universal Tool — Fast, Private Online Tools</title>
 
-        <meta
-          name="description"
-          content="Fast, private and free online tools that run directly in your browser. Format JSON, generate secure passwords, create QR codes and more."
-        />
+  <meta
+    name="description"
+    content="Fast, private and free online tools that run directly in your browser. Format JSON, generate secure passwords, create QR codes and more."
+  />
 
-        <meta
-          name="robots"
-          content="index, follow"
-        />
+  <meta name="robots" content="index, follow" />
 
-        <meta
-          property="og:title"
-          content="Universal Tool — Fast, Private Online Tools"
-        />
+  {/* Open Graph */}
+  <meta property="og:type" content="website" />
 
-        <meta
-          property="og:description"
-          content="Fast, private and free online tools. No accounts, no uploads, no nonsense."
-        />
+  <meta
+    property="og:title"
+    content="Universal Tool — Fast, Private Online Tools"
+  />
 
-        <meta
-          property="og:type"
-          content="website"
-        />
+  <meta
+    property="og:description"
+    content="Fast, private and free online tools. No accounts, no uploads, no nonsense."
+  />
 
-        <meta
-          name="twitter:title"
-          content="Universal Tool — Fast, Private Online Tools"
-        />
+  <meta
+    property="og:image"
+    content="https://TU-DOMINIO.com/og-image.png"
+  />
 
-        <meta
-          name="twitter:description"
-          content="Fast, private and free online tools. No accounts, no uploads, no nonsense."
-        />
-      </Helmet>
+  <meta
+    property="og:image:width"
+    content="1200"
+  />
+
+  <meta
+    property="og:image:height"
+    content="630"
+  />
+
+  <meta
+    property="og:image:alt"
+    content="Universal Tool — Fast, private online tools"
+  />
+
+  <meta
+    property="og:url"
+    content="https://TU-DOMINIO.com/"
+  />
+
+  <meta
+    property="og:site_name"
+    content="Universal Tool"
+  />
+
+  {/* Twitter / X */}
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="Universal Tool — Fast, Private Online Tools"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Fast, private and free online tools. No accounts, no uploads, no nonsense."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://TU-DOMINIO.com/og-image.png"
+  />
+</Helmet>
     <main className="relative min-h-screen overflow-hidden bg-[#09090b] text-white">
 
       {/* Background effects */}
